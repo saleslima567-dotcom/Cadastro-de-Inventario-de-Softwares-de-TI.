@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastrar Software - Inventário</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="nav-container">
+      <div class="logo">Sistema de Inventário de Softwares</div>
+
+      <button class="menu-btn" aria-expanded="false" aria-controls="main-nav" id="menuBtn">
+
+        <div></div><div></div><div></div>
+      </button>
+
+      <ul class="nav-links" id="main-nav">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="cadastro.html" aria-current="page">Cadastro</a></li>
+        <li><a href="inventario.html">Inventário</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="form-container" aria-labelledby="cadastro-title">
+      <h2 id="cadastro-title" class="form-title">Cadastrar Software</h2>
+
+      <form class="form-box" id="cadastroForm" novalidate>
+        <label for="software">Nome do Software</label>
+        <input id="software" name="software" type="text" placeholder="Digite o nome do software" required aria-required="true">
+
+        <label for="versao">Versão</label>
+        <input id="versao" name="versao" type="text" placeholder="Ex: 5.0, 2023..." required>
+
+        <label for="licenca">Tipo de Licença</label>
+        <select id="licenca" name="licenca" required>
+          <option value="">Selecione</option>
+          <option value="Trial">Trial</option>
+          <option value="Anual">Anual</option>
+          <option value="Vitalicia">Vitalícia</option>
+        </select>
+
+        <label for="renovacao">Data de Renovação</label>
+        <input id="renovacao" name="renovacao" type="date" required>
+
+        <label for="emailResponsavel">E-mail do Responsável</label>
+        <input id="emailResponsavel" name="emailResponsavel" type="email" placeholder="exemplo@empresa.com" required>
+
+        <label for="senhaCadastro">Senha de Acesso</label>
+        <input id="senhaCadastro" name="senhaCadastro" type="password" placeholder="Senha (mín. 6 caracteres)" required minlength="6">
+
+        <label for="confirmarSenha">Confirmar Senha</label>
+        <input id="confirmarSenha" name="confirmarSenha" type="password" placeholder="Repita a senha" required minlength="6">
+
+        <button type="submit" class="btn-submit">Cadastrar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Sistema de Inventário de Softwares
+  </footer>
+</body>
+</html>
