@@ -3,11 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contato - Inventário</title>
+  <title>Contato - Inventário de Softwares</title>
+
   <link rel="stylesheet" href="css/style.css">
   <script src="js/script.js" defer></script>
 </head>
+
 <body>
+
+  <!-- NAVBAR -->
   <nav class="navbar" aria-label="Navegação principal">
     <div class="nav-container">
       <div class="logo">Sistema de Inventário de Softwares</div>
@@ -20,43 +24,62 @@
         <li><a href="index.html">Início</a></li>
         <li><a href="sobre.html">Sobre</a></li>
         <li><a href="cadastro.html">Cadastro</a></li>
-        <li><a href="inventario.html">Inventário</a></li>
+        <li><a href="softwares.html">Softwares</a></li>
         <li><a href="contato.html" aria-current="page">Contato</a></li>
       </ul>
     </div>
   </nav>
 
-  <header class="contato-header" role="banner">
-    Entre em contato conosco
-  </header>
+  <header class="sobre-header">Entre em Contato</header>
 
   <main>
-    <div class="container">
-      <div class="card" role="article">
-        <img src="imagens/e-mail.png" alt="ícone de e-mail">
-        <div class="title">E-mail</div>
-        <div class="desc">Tem alguma dúvida?</div>
-        <div><a href="mailto:suporte@empresa.com">suporte@empresa.com</a></div>
-      </div>
+  <div class="contato-grid">
+    <!-- Informações de Contato -->
+    <div class="contato-card contato-info-card">
+      <h2>Informações de Contato</h2>
+      <p>Se você tiver dúvidas ou precisar de suporte, entre em contato conosco:</p>
 
-      <div class="card" role="article">
-        <img src="imagens/chamada-telefonica.png" alt="ícone de telefone">
-        <div class="title">Telefone</div>
-        <div class="desc">Você pode ligar a qualquer hora.</div>
-        <div><b>0800 328 555</b></div>
-      </div>
-
-      <div class="card" role="article">
-        <img src="imagens/bater-papo.png" alt="ícone de chat">
-        <div class="title">Chat</div>
-        <div class="desc">Precisa de ajuda agora?</div>
-        <div><a href="#">Clique aqui</a></div>
-      </div>
+      <!-- TELEFONE -->
+  <div class="contato-item">
+    <img src="imagens/telefone.png" alt="Telefone" class="contato-icon" />
+    <div class="contato-text">
+      <p>Ligue para nós:</p>
+      <a href="tel:+5511987654321">(11) 98765-4321</a>
     </div>
-  </main>
+  </div>
+
+  <!-- EMAIL -->
+  <div class="contato-item">
+    <img src="imagens/e-mail.png" alt="Email" class="contato-icon" />
+    <div class="contato-text">
+      <p>Envie um email para:</p>
+      <a href="mailto:suporte@inventario.com">suporte@inventario.com</a>
+    </div>
+  </div>
+    </div>
+
+    <!-- Formulário de Contato -->
+    <div class="contato-card contato-form-card">
+      <h2>Envie uma Mensagem</h2>
+      <form id="contatoForm" novalidate>
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="Seu email" required>
+
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem" rows="5" required></textarea>
+
+        <button type="submit" class="btn-submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+</main>
 
   <footer>
-    © 2026 Sistema de Inventário de Softwares
+    <p>&copy; 2026 Sistema de Inventário de Softwares</p>
   </footer>
+
 </body>
 </html>

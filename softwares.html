@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Softwares - Inventário de Softwares</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/script.js" defer></script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">Sistema de Inventário de Softwares</div>
+
+      <button class="menu-btn" id="menuBtn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </button>
+
+      <ul class="nav-links" id="main-nav">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="cadastro.html">Cadastro</a></li>
+        <li><a href="softwares.html" aria-current="page">Softwares</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="sobre-header">Softwares Cadastrados</header>
+
+  <main class="sobre-container">
+    <h2 class="sobre-title">Lista de Softwares Registrados</h2>
+
+    <p class="sobre-text">
+      Aqui estão todos os softwares cadastrados no sistema, com informações sobre versão, licença e data de renovação.
+    </p>
+
+    <div class="table-responsive">
+      <table class="inventory-table" id="softwareTable">
+        <thead>
+          <tr>
+            <th>Software</th>
+            <th>Versão</th>
+            <th>Licença</th>
+            <th>Renovação</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody id="softwareList">
+          
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Sistema de Inventário de Softwares</p>
+  </footer>
+</body>
+
+</html>
