@@ -4,21 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cadastrar Software - Inventário de Softwares</title>
-
   <link rel="stylesheet" href="css/style.css">
   <script src="js/script.js" defer></script>
 </head>
 
 <body>
-
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo">Sistema de Inventário de Softwares</div>
-
       <button class="menu-btn" id="menuBtn">
         <div></div><div></div><div></div>
       </button>
-
       <ul class="nav-links" id="main-nav">
         <li><a href="index.html">Início</a></li>
         <li><a href="sobre.html">Sobre</a></li>
@@ -32,17 +28,15 @@
   <main>
     <section class="form-container">
       <h2 class="form-title">Cadastrar Software</h2>
-
       <form class="form-box" id="cadastroForm" novalidate>
-
         <label for="software">Nome do Software</label>
-        <input id="software" type="text" placeholder="Digite o nome do software" required>
+        <input id="software" name="software" type="text" placeholder="Digite o nome do software" required>
 
         <label for="versao">Versão</label>
-        <input id="versao" type="text" placeholder="Ex: 2023, v5.1..." required>
+        <input id="versao" name="versao" type="text" placeholder="Ex: 2023, v5.1..." required>
 
         <label for="licenca">Tipo de Licença</label>
-        <select id="licenca" required>
+        <select id="licenca" name="licenca" required>
           <option value="">Selecione</option>
           <option value="Trial">Trial</option>
           <option value="Anual">Anual</option>
@@ -50,19 +44,18 @@
         </select>
 
         <label for="renovacao">Data de Renovação</label>
-        <input id="renovacao" type="date" required>
+        <input id="renovacao" name="renovacao" type="date" required>
 
         <label for="emailResponsavel">E-mail do Responsável</label>
-        <input id="emailResponsavel" type="email" placeholder="exemplo@empresa.com" required>
+        <input id="emailResponsavel" name="emailResponsavel" type="email" placeholder="exemplo@empresa.com" required>
 
         <label for="senhaCadastro">Senha de Acesso</label>
-        <input id="senhaCadastro" type="password" placeholder="Senha (mín. 6 caracteres)" minlength="6" required>
+        <input id="senhaCadastro" name="senhaCadastro" type="password" placeholder="Senha (mín. 6 caracteres)" minlength="6" required>
 
         <label for="confirmarSenha">Confirmar Senha</label>
-        <input id="confirmarSenha" type="password" placeholder="Confirme a senha" minlength="6" required>
+        <input id="confirmarSenha" name="confirmarSenha" type="password" placeholder="Confirme a senha" minlength="6" required>
 
         <button type="submit" class="btn-submit">Cadastrar</button>
-
       </form>
     </section>
   </main>
@@ -70,6 +63,5 @@
   <footer>
     <p>&copy; 2026 Sistema de Inventário de Softwares</p>
   </footer>
-
 </body>
 </html>
