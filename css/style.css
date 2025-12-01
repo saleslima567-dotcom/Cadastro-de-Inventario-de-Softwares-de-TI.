@@ -250,11 +250,11 @@ main {
 /* FORM CADASTRO */
 .form-container {
   max-width: 520px;
-  background: var(--card-bg);
+  background: var(--card-bg, #f5f5f5);
   padding: 25px;
   margin: 40px auto;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  border-radius: var(--radius, 8px);
+  box-shadow: var(--shadow, 0 2px 10px rgba(0,0,0,0.1));
 }
 
 .form-title {
@@ -284,12 +284,12 @@ main {
 .btn-submit {
   margin-top: 20px;
   padding: 14px;
-  background: var(--dark);
+  background: var(--dark, #555);
   color: #fff;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--transition, 0.3s);
 }
 
 .btn-submit:hover {
@@ -298,17 +298,20 @@ main {
 
 /* Lista de softwares */
 .table-responsive {
+  width: 100%;
   overflow-x: auto;
 }
 
 .inventory-table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
   margin-top: 20px;
+  text-align: center;
 }
 
 .inventory-table th {
-  background: var(--dark);
+  background: var(--dark, #555);
   color: white;
   padding: 12px;
 }
@@ -341,12 +344,13 @@ main {
   padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: 0.3s;
 }
 
 .btn-excluir:hover {
   background: #b71c1c;
 }
+
 
 /* GRID DE CONTATO */
 .contato-grid {
@@ -406,7 +410,7 @@ main {
 /* Texto dentro do item */
 .contato-text p {
   margin: 0;
-  font-size: 19px; 
+  font-size: 17px; 
   font-weight: bold; 
   color: var(--text);
 }
