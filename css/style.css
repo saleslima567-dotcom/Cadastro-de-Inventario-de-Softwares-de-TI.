@@ -1,1 +1,519 @@
+/* RESET E VARIÁVEIS GLOBAIS */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+:root {
+  --bg: #f4f4f9;
+  --dark: #19191b;
+  --text: #111;
+  --muted: #555;
+  --card-bg: #ffffff;
+  --radius: 10px;
+  --shadow: 0 3px 12px rgba(0,0,0,0.1);
+  --transition: .2s ease-in-out;
+}
+
+body {
+  background: var(--bg);
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* NAVBAR */
+.navbar {
+  background: var(--dark);
+  height: 70px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 50;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #fff;
+  font-size: 20px;
+}
+
+/* LINKS */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.nav-links a:hover{
+  background: none; /* ou outra cor se quiser no hover */
+  color: #fff;      /* mantém a cor do texto, se quiser */
+  text-decoration: underline; /* opcional */
+}
+
+.nav-links a[aria-current="page"] {
+  background: none
+}
+
+/* BOTÃO MOBILE */
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-btn div {
+  width: 28px;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* HOME */
+.home-container {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.home-container h1 {
+  font-size: 38px;
+  margin-bottom: 12px;
+}
+
+.home-container p {
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.home-btn {
+  padding: 12px 28px;
+  background: var(--dark);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  transition: var(--transition);
+}
+
+.home-btn:hover {
+  background: #333;
+}
+
+/* LOGIN */
+.login-container {
+  max-width: 380px;
+  margin: 50px auto;
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-container label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 14px;
+}
+
+.login-container input:focus {
+  border-color: var(--dark);
+  outline: none;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.login-container button:hover {
+  background: #333;
+}
+
+.links {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.links a {
+  text-decoration: none;
+  color: var(--dark);
+  font-size: 14px;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+/* Alinhamento perfeito do 'Lembrar senha' */
+.remember-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.remember-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--dark);
+}
+
+.remember-label {
+  font-weight: normal !important;
+  margin: 0 !important;
+  display: inline-block !important;
+}
+
+
+/* SOBRE */
+.sobre-header {
+  background: var(--dark);
+  color: #fff;
+  text-align: center;
+  padding: 25px;
+  font-size: 32px;
+}
+
+.sobre-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.sobre-title {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.sobre-subtitle {
+  font-size: 22px;
+  margin: 20px 0 10px;
+}
+
+.sobre-text {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+/* FORM CADASTRO */
+.form-container {
+  max-width: 520px;
+  background: var(--card-bg);
+  padding: 25px;
+  margin: 40px auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.form-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-box label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.form-box input,
+.form-box select {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+.btn-submit {
+  margin-top: 20px;
+  padding: 14px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-submit:hover {
+  background: #333;
+}
+
+/* Lista de softwares */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.inventory-table th {
+  background: var(--dark);
+  color: white;
+  padding: 12px;
+}
+
+.inventory-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+
+.status-ok {
+  color: green;
+  font-weight: bold;
+}
+
+.status-alerta {
+  color: #d8a500;
+  font-weight: bold;
+}
+
+.status-vencida {
+  color: red;
+  font-weight: bold;
+}
+
+.btn-excluir {
+  background: #c62828;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-excluir:hover {
+  background: #b71c1c;
+}
+
+/* GRID DE CONTATO */
+.contato-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 10px;
+}
+
+/* CARD DE CONTATO PADRÃO */
+.contato-card {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+/* CARD DE INFORMAÇÕES */
+.contato-info-card p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.contato-info-card a {
+  color: var(--dark);
+  text-decoration: none;
+  transition: var(--transition);
+  font-weight: bold;
+}
+
+.contato-info-card a:hover {
+  text-decoration: underline;
+  color: #111;
+}
+
+/* ITENS DE CONTATO (TELEFONE / EMAIL) */
+.contato-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.contato-item img.contato-icon {
+  width: 26px;   
+  height: 26px;
+  object-fit: contain;
+}
+
+/* Texto dentro do item */
+.contato-text p {
+  margin: 0;
+  font-size: 19px; 
+  font-weight: bold; 
+  color: var(--text);
+}
+
+.contato-text a {
+  font-size: 17px;   
+  font-weight: normal;
+  color: var(--dark);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.contato-text a:hover {
+  text-decoration: underline;
+  color: #333;
+}
+
+/* FORMULÁRIO */
+.contato-form-card label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+.contato-form-card input,
+.contato-form-card textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.contato-form-card input:focus,
+.contato-form-card textarea:focus {
+  border-color: var(--dark);
+  outline: none;
+}
+
+.contato-form-card button {
+  width: 100px;
+  padding: 12px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.contato-form-card button:hover {
+  background: #333;
+}
+
+/* RESPONSIVIDADE CONTATO */
+@media (max-width: 768px) {
+  .contato-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* footer */
+footer {
+  background: var(--dark);
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-top: auto;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+
+  .menu-btn {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: var(--dark);
+    padding: 20px;
+    border-radius: var(--radius);
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    left: 20px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    text-align: center;
+    margin: 8px 0;
+  }
+
+  .sobre-container,
+  .form-container {
+    margin: 20px;
+  }
+
+  .inventory-table td,
+  .inventory-table th {
+    white-space: nowrap;
+  }
+}
