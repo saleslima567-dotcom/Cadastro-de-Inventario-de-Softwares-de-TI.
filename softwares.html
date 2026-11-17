@@ -12,7 +12,7 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo">Sistema de Inventário de Softwares</div>
-      <button class="menu-btn" id="menuBtn">
+      <button type="button" class="menu-btn" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu" id="menuBtn">
         <div></div><div></div><div></div>
       </button>
       <ul class="nav-links" id="main-nav">
@@ -32,6 +32,7 @@
     <p class="sobre-text">
       Aqui estão todos os softwares cadastrados no sistema, com informações sobre versão, licença e data de renovação.
     </p>
+    <p id="inventarioVazio" role="status">Nenhum software cadastrado neste navegador ainda.</p>
 
     <div class="table-responsive">
       <table class="inventory-table" id="softwareTable">

@@ -12,7 +12,7 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo">Sistema de Inventário de Softwares</div>
-      <button class="menu-btn" id="menuBtn">
+      <button type="button" class="menu-btn" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu" id="menuBtn">
         <div></div><div></div><div></div>
       </button>
       <ul class="nav-links" id="main-nav">
@@ -28,7 +28,7 @@
   <main>
     <section class="form-container">
       <h2 class="form-title">Cadastrar Software</h2>
-      <form class="form-box" id="cadastroForm" novalidate>
+      <form class="form-box" id="cadastroForm">
         <label for="software">Nome do Software</label>
         <input id="software" name="software" type="text" placeholder="Digite o nome do software" required>
 
@@ -49,14 +49,9 @@
         <label for="emailResponsavel">E-mail do Responsável</label>
         <input id="emailResponsavel" name="emailResponsavel" type="email" placeholder="exemplo@empresa.com" required>
 
-        <label for="senhaCadastro">Senha de Acesso</label>
-        <input id="senhaCadastro" name="senhaCadastro" type="password" placeholder="Senha (mín. 6 caracteres)" minlength="6" required>
-
-        <label for="confirmarSenha">Confirmar Senha</label>
-        <input id="confirmarSenha" name="confirmarSenha" type="password" placeholder="Confirme a senha" minlength="6" required>
-
         <button type="submit" class="btn-submit">Cadastrar</button>
       </form>
+      <p id="cadastroStatus" role="status" aria-live="polite"></p>
     </section>
   </main>
 

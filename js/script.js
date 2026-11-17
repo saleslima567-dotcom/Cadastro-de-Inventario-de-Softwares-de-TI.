@@ -1,105 +1,182 @@
 document.addEventListener("DOMContentLoaded", () => {
-    toggleMenu();
+    inicializarMenu();
     inicializarCadastro();
-    carregarInventario();
+    inicializarTabela();
 });
 
-/* MENU MOBILE */
-function toggleMenu() {
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.getElementById("main-nav");
-    if (!menuBtn || !navLinks) return;
-    menuBtn.addEventListener("click", () => navLinks.classList.toggle("active"));
+function inicializarMenu() {
+    const botao = document.getElementById("menuBtn");
+    const links = document.getElementById("main-nav");
+    if (!botao || !links) return;
+
+    const fecharMenu = () => {
+        links.classList.remove("active");
+        botao.setAttribute("aria-expanded", "false");
+        botao.setAttribute("aria-label", "Abrir menu");
+    };
+
+    botao.addEventListener("click", () => {
+        const aberto = botao.getAttribute("aria-expanded") === "true";
+        botao.setAttribute("aria-expanded", String(!aberto));
+        botao.setAttribute("aria-label", aberto ? "Abrir menu" : "Fechar menu");
+        links.classList.toggle("active", !aberto);
+    });
+
+    links.addEventListener("click", event => {
+        if (event.target.closest("a")) fecharMenu();
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") fecharMenu();
+    });
 }
 
-/* CADASTRO DE SOFTWARES */
 function inicializarCadastro() {
     const form = document.getElementById("cadastroForm");
     if (!form) return;
 
-    form.addEventListener("submit", e => {
-        e.preventDefault();
+    const campoData = document.getElementById("renovacao");
+    const hoje = new Date();
+    campoData.min = `${hoje.getFullYear()}-${String(hoje.getMonth() + 1).padStart(2, "0")}-${String(hoje.getDate()).padStart(2, "0")}`;
 
+    form.addEventListener("submit", event => {
+        event.preventDefault();
         const software = {
             nome: document.getElementById("software").value.trim(),
             versao: document.getElementById("versao").value.trim(),
             licenca: document.getElementById("licenca").value,
-            renovacao: document.getElementById("renovacao").value,
+            renovacao: campoData.value,
             responsavel: document.getElementById("emailResponsavel").value.trim()
         };
+        const status = document.getElementById("cadastroStatus");
 
-        const senha = document.getElementById("senhaCadastro").value;
-        const confirmar = document.getElementById("confirmarSenha").value;
-
-        if (!software.nome || !software.versao || !software.licenca || !software.renovacao || !software.responsavel) {
-            return alert("Preencha todos os campos obrigatórios!");
+        if (!form.reportValidity()) return;
+        if (!parseDataLocal(software.renovacao)) {
+            status.textContent = "Informe uma data de renovação válida.";
+            return;
         }
 
-        if (senha !== confirmar) return alert("As senhas não coincidem.");
-
-        salvarSoftware(software);
-        alert("Software cadastrado com sucesso!");
-        form.reset();
-        carregarInventario();
+        try {
+            if (!salvarSoftware(software)) {
+                status.textContent = "Esse software e versão já estão cadastrados.";
+                return;
+            }
+            status.textContent = "Software cadastrado.";
+            form.reset();
+            campoData.min = `${hoje.getFullYear()}-${String(hoje.getMonth() + 1).padStart(2, "0")}-${String(hoje.getDate()).padStart(2, "0")}`;
+            carregarInventario();
+        } catch (error) {
+            console.error("Não foi possível salvar o inventário.", error);
+            status.textContent = "Não foi possível salvar neste navegador. Confira o espaço disponível.";
+        }
     });
 }
 
-/* SALVAR SOFTWARE NO LOCALSTORAGE */
-function salvarSoftware(software) {
-    const lista = JSON.parse(localStorage.getItem("inventario")) || [];
-    const duplicado = lista.some(s => s.nome === software.nome && s.versao === software.versao);
-    if (duplicado) return alert("Software já cadastrado.");
-    lista.push(software);
-    localStorage.setItem("inventario", JSON.stringify(lista));
+function lerInventario() {
+    try {
+        const dados = JSON.parse(localStorage.getItem("inventario") || "[]");
+        return Array.isArray(dados) ? dados : [];
+    } catch (error) {
+        console.error("Os dados salvos do inventário não puderam ser lidos.", error);
+        return [];
+    }
 }
 
-/* CARREGAR INVENTÁRIO NA TABELA */
+function salvarSoftware(software) {
+    const lista = lerInventario();
+    const chaveNome = software.nome.toLocaleLowerCase("pt-BR");
+    const duplicado = lista.some(item =>
+        String(item.nome || "").trim().toLocaleLowerCase("pt-BR") === chaveNome &&
+        String(item.versao || "").trim().toLocaleLowerCase("pt-BR") === software.versao.toLocaleLowerCase("pt-BR")
+    );
+    if (duplicado) return false;
+
+    lista.push(software);
+    localStorage.setItem("inventario", JSON.stringify(lista));
+    return true;
+}
+
+function inicializarTabela() {
+    const tbody = document.getElementById("softwareList");
+    if (!tbody) return;
+
+    tbody.addEventListener("click", event => {
+        if (!(event.target instanceof Element)) return;
+        const botao = event.target.closest("button.btn-excluir");
+        if (!botao) return;
+        excluirSoftware(Number(botao.dataset.index));
+    });
+
+    carregarInventario();
+}
+
 function carregarInventario() {
     const tbody = document.getElementById("softwareList");
     if (!tbody) return;
 
-    const dados = JSON.parse(localStorage.getItem("inventario")) || [];
-    const hoje = new Date();
+    const dados = lerInventario();
+    const avisoVazio = document.getElementById("inventarioVazio");
+    if (avisoVazio) avisoVazio.hidden = dados.length > 0;
+    tbody.replaceChildren();
 
-    tbody.innerHTML = dados.map((s, index) => {
-        const diffDias = Math.floor((new Date(s.renovacao) - hoje) / (1000 * 60 * 60 * 24));
-        const status = diffDias < 0 ? "Vencida" : diffDias <= 30 ? "Perto do vencimento" : "Ativa";
-        const statusClass = diffDias < 0 ? "status-vencida" : diffDias <= 30 ? "status-alerta" : "status-ok";
+    dados.forEach((software, index) => {
+        const renovacao = parseDataLocal(software.renovacao);
+        const diferenca = renovacao ? diasAte(renovacao) : null;
+        const status = diferenca === null ? "Data inválida" : diferenca < 0 ? "Vencida" : diferenca <= 30 ? "Perto do vencimento" : "Ativa";
+        const classe = diferenca === null || diferenca < 0 ? "status-vencida" : diferenca <= 30 ? "status-alerta" : "status-ok";
+        const linha = document.createElement("tr");
 
-        return `
-            <tr>
-                <td>${s.nome}</td>
-                <td>${s.versao}</td>
-                <td>${s.licenca}</td>
-                <td>${formatarData(s.renovacao)}</td>
-                <td><span class="${statusClass}">${status}</span></td>
-                <td><button class="btn-excluir" data-index="${index}">Excluir</button></td>
-            </tr>
-        `;
-    }).join("");
+        [software.nome, software.versao, software.licenca, renovacao ? formatarData(renovacao) : "—"].forEach(valor => {
+            const celula = document.createElement("td");
+            celula.textContent = String(valor ?? "");
+            linha.append(celula);
+        });
+
+        const celulaStatus = document.createElement("td");
+        const selo = document.createElement("span");
+        selo.className = classe;
+        selo.textContent = status;
+        celulaStatus.append(selo);
+        linha.append(celulaStatus);
+
+        const celulaAcao = document.createElement("td");
+        const botao = document.createElement("button");
+        botao.type = "button";
+        botao.className = "btn-excluir";
+        botao.dataset.index = String(index);
+        botao.textContent = "Excluir";
+        botao.setAttribute("aria-label", `Excluir ${String(software.nome || "software")}`);
+        celulaAcao.append(botao);
+        linha.append(celulaAcao);
+        tbody.append(linha);
+    });
 }
 
-/* EXCLUIR SOFTWARE */
 function excluirSoftware(index) {
-    const lista = JSON.parse(localStorage.getItem("inventario")) || [];
+    const lista = lerInventario();
+    if (!Number.isInteger(index) || index < 0 || index >= lista.length) return;
+    if (!window.confirm(`Excluir ${lista[index].nome || "este software"} do inventário?`)) return;
+
     lista.splice(index, 1);
     localStorage.setItem("inventario", JSON.stringify(lista));
     carregarInventario();
 }
 
-/* EVENT DELEGATION PARA BOTÃO EXCLUIR */
-document.getElementById("softwareList").addEventListener("click", e => {
-    if (e.target.classList.contains("btn-excluir")) {
-        const index = e.target.dataset.index;
-        excluirSoftware(index);
-    }
-});
+function parseDataLocal(dataStr) {
+    if (typeof dataStr !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(dataStr)) return null;
+    const [ano, mes, dia] = dataStr.split("-").map(Number);
+    const data = new Date(ano, mes - 1, dia);
+    if (data.getFullYear() !== ano || data.getMonth() !== mes - 1 || data.getDate() !== dia) return null;
+    return data;
+}
 
-/* FORMATAÇÃO DE DATA */
-function formatarData(dataStr) {
-    const data = new Date(dataStr);
-    const dia = String(data.getDate()).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0');
-    const ano = data.getFullYear();
-    return `${dia}/${mes}/${ano}`;
+function diasAte(data) {
+    const hoje = new Date();
+    const dataUTC = Date.UTC(data.getFullYear(), data.getMonth(), data.getDate());
+    const hojeUTC = Date.UTC(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+    return Math.round((dataUTC - hojeUTC) / 86400000);
+}
+
+function formatarData(data) {
+    return new Intl.DateTimeFormat("pt-BR").format(data);
 }
