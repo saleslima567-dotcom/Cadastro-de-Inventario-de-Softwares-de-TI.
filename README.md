@@ -38,7 +38,6 @@ sobre.html       Objetivo e funcionamento
 cadastro.html    Formulário para novos registros
 softwares.html   Lista e situação das licenças
 login.html       Aviso sobre autenticação não implementada
-contato.html     Escopo e limites da demonstração
 css/style.css    Estilos
 js/script.js     Menu, cadastro, armazenamento e lista
 imagens/         Recursos visuais
