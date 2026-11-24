@@ -8,11 +8,11 @@ const license=(name,version='1')=>({nome:name,versao:version,licenca:'Anual',ren
 const account=(name,email)=>({name,email,password:'correct horse battery staple'});
 function fixture(){
  const sql=new DatabaseSync(':memory:');sql.exec('PRAGMA foreign_keys=ON');sql.exec(readFileSync(new URL('../migrations/0001_initial.sql',import.meta.url),'utf8'));
- return {close:()=>sql.close(),prepare(query){const st=sql.prepare(query);return{bind(...params){return{
+ return {close:()=>sql.close(),prepare(query){const st=sql.prepare(query);const execute=(...params)=>({
  first:async()=>st.get(...params)??null,
  all:async()=>({results:st.all(...params)}),
  run:async()=>({meta:{changes:Number(st.run(...params).changes)}})
- };}}}};
+ });return {...execute(),bind:(...params)=>execute(...params)};}};
 }
 function request(db,path,method='GET',data,cookie,originHeader=true){
  const headers={};if(originHeader)headers.Origin=origin;if(cookie)headers.Cookie=cookie;if(data!==undefined)headers['Content-Type']='application/json';
