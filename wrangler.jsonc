@@ -13,10 +13,19 @@
     {
       "binding": "DB",
       "database_name": "inventario-db",
-      "database_id": "a6936ce7-eaf6-40ac-a4bb-71cde5f00b5a"
+      "database_id": "a6936ce7-eaf6-40ac-a4bb-71cde5f00b5a",
+      "migrations_dir": "migrations"
     }
   ],
-  "previews": {},
+  "previews": {
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "inventario-preview-db",
+        "database_id": "4ed0402f-fe44-429b-95ef-6b15772fb276"
+      }
+    ]
+  },
   "observability": {
     "enabled": true
   }
