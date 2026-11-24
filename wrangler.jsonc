@@ -1,0 +1,23 @@
+{
+  "name": "cadastro-de-inventario-de-softwares-de-ti",
+  "main": "worker/api.mjs",
+  "compatibility_date": "2026-11-17",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "inventario-db",
+      "database_id": "a6936ce7-eaf6-40ac-a4bb-71cde5f00b5a"
+    }
+  ],
+  "previews": {},
+  "observability": {
+    "enabled": true
+  }
+}
